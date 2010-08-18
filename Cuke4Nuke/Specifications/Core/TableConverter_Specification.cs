@@ -4,6 +4,7 @@ using System.ComponentModel;
 using NUnit.Framework;
 using Cuke4Nuke.Core;
 using Cuke4Nuke.Framework;
+using Moq;
 
 namespace Cuke4Nuke.Specifications.Core
 {
@@ -16,6 +17,37 @@ namespace Cuke4Nuke.Specifications.Core
             TypeConverterAttribute attr = new TypeConverterAttribute(typeof(TableConverter));
             TypeDescriptor.AddAttributes(typeof(Table), new Attribute[] { attr });
             converter = TypeDescriptor.GetConverter(typeof(Table)) as TableConverter;
+        }
+
+        [Test]
+        public void ShouldConvertFromWatinTable()
+        {
+            var watinTable = new Mock<WatiN.Core.Table>();
+            converter = TypeDescriptor.GetConverter(typeof(WatiN.Core.Table)) as TableConverter;
+
+            Assert.DoesNotThrow(delegate
+            {
+                Table table = (Table)converter.ConvertFrom(watinTable);
+            });
+        }
+
+        [Test]
+        public void WatinToTable_ShouldConvertWithNoRowsInTable()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [Test]
+        public void WatinToTable_ShouldConvertWithOneRowAndOneCell()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void WatinToTable_ShouldConvertWithOneRowAndMultipleCells()
+        {
+            throw new NotImplementedException();
         }
 
         [Test]
