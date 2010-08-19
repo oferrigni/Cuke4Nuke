@@ -22,13 +22,14 @@ namespace Cuke4Nuke.Specifications.Core
         [Test]
         public void ShouldConvertFromWatinTable()
         {
-            var watinTable = new Mock<WatiN.Core.Table>();
+            var watinTable = new Mock<WatiN.Core.Table>()
+            {
+                DefaultValue = DefaultValue.Mock,
+                CallBase = true
+            };
             converter = TypeDescriptor.GetConverter(typeof(WatiN.Core.Table)) as TableConverter;
 
-            Assert.DoesNotThrow(delegate
-            {
-                Table table = (Table)converter.ConvertFrom(watinTable);
-            });
+            converter.ConvertFrom(watinTable.Object);
         }
 
         [Test]

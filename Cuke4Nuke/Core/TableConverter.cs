@@ -14,7 +14,11 @@ namespace Cuke4Nuke.Core
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
+            System.Console.WriteLine("Checking convert from with type " + sourceType);
             if (sourceType == typeof(string))
+            {
+                return true;
+            } if (sourceType == typeof(WatiN.Core.Table))
             {
                 return true;
             }
@@ -27,11 +31,16 @@ namespace Cuke4Nuke.Core
             {
                 return JsonToTable(value.ToString());
             }
+            if (value is WatiN.Core.Table)
+            {
+                return null;
+            }
             return base.ConvertFrom(context, culture, value);
         }
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
+            System.Console.WriteLine("Checking convert to with type " + destinationType);
             if (destinationType == typeof(string))
             {
                 return true;
